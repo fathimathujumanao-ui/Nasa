@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d1d" />
+  <title>ORBITWISE | Mission Architect</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ORBITWISE home">
+      <span class="brand-mark">O<span>+</span></span>
+      <span><strong>ORBITWISE</strong><small>MISSION ARCHITECT</small></span>
+    </a>
+    <div class="top-status"><span class="live-dot"></span> SIMULATION ENVIRONMENT <span class="status-divider">/</span> V4.0</div>
+    <button id="resetBtn" class="ghost-btn" type="button">↺ Reset mission</button>
+  </header>
+
+  <main class="layout">
+    <section class="hero panel">
+      <div class="hero-copy">
+        <p class="eyebrow">MISSION CONTROL <span>•</span> MARS EXPLORATION</p>
+        <h1>Design the next<br /><em>giant leap.</em></h1>
+        <p class="hero-sub">Build a mission, balance the trade-offs, and see how your decisions shape a journey to Mars.</p>
+        <div class="hero-actions">
+          <button id="simulateBtn" class="primary-btn" type="button">▶ Run mission simulation</button>
+          <button id="reportBtn" class="secondary-btn" type="button">↓ Export mission report</button>
+        </div>
+        <div class="hero-metrics">
+          <div><span class="metric-icon">◎</span><span><b id="heroScore">--</b><small>MISSION READINESS</small></span></div>
+          <div><span class="metric-icon">◈</span><span><b id="heroBudget">$0M</b><small>ESTIMATED COST</small></span></div>
+          <div><span class="metric-icon">ϟ</span><span><b id="heroPower">0%</b><small>POWER MARGIN</small></span></div>
+        </div>
+      </div>
+      <div class="planet-scene" aria-label="Illustration of Mars and a spacecraft">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="planet"><div class="planet-crater crater-a"></div><div class="planet-crater crater-b"></div><div class="planet-crater crater-c"></div><div class="planet-shadow"></div></div>
+        <div class="ship"><span class="ship-body"></span><span class="ship-wing"></span><span class="ship-glow"></span></div>
+        <span class="scene-label label-top">MARS / SOL 001</span><span class="scene-label label-bottom">DEEP SPACE NETWORK <b>● ONLINE</b></span>
+        <div class="scene-cross cross-a">+</div><div class="scene-cross cross-b">+</div>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card panel"><span class="stat-label">MISSION BUDGET</span><strong id="budgetStat">$420M</strong><div class="bar"><span id="budgetBar"></span></div><small id="budgetHint">Budget allocation</small></article>
+      <article class="stat-card panel"><span class="stat-label">POWER RESERVE</span><strong id="powerStat">78%</strong><div class="bar"><span id="powerBar"></span></div><small>Projected end-of-mission reserve</small></article>
+      <article class="stat-card panel"><span class="stat-label">RISK INDEX</span><strong id="riskStat">LOW</strong><div class="bar"><span id="riskBar"></span></div><small>Lower is better</small></article>
+      <article class="stat-card panel"><span class="stat-label">SCIENCE RETURN</span><strong id="scienceStat">82/100</strong><div class="bar"><span id="scienceBar"></span></div><small>Expected research value</small></article>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel builder">
+        <div class="section-head"><div><p class="eyebrow">01 / CONFIGURATION</p><h2>Build your spacecraft</h2></div><span class="tag">LIVE MODEL</span></div>
+        <label class="field-label" for="missionName">Mission name</label>
+        <input id="missionName" class="text-input" value="Ares Pathfinder" maxlength="48" />
+        <div class="field-label">Power system</div>
+        <div class="choice-grid" id="powerChoices">
+          <button class="choice selected" data-power="solar" type="button"><span class="choice-icon">☀</span><b>Solar array</b><small>Affordable · Moderate output</small><span class="choice-cost">+$45M</span></button>
+          <button class="choice" data-power="nuclear" type="button"><span class="choice-icon">ϟ</span><b>RTG nuclear</b><small>Reliable · High output</small><span class="choice-cost">+$90M</span></button>
+        </div>
+        <div class="field-label">Mission priority</div>
+        <div class="segmented" id="priorityChoices">
+          <button class="selected" data-priority="balanced" type="button">Balanced</button>
+          <button data-priority="science" type="button">Science first</button>
+          <button data-priority="safety" type="button">Safety first</button>
+        </div>
+        <div class="field-label">Equipment loadout</div>
+        <div class="equipment-list">
+          <label class="equipment"><span class="equip-icon">⌖</span><span><b>High-resolution camera</b><small>Terrain mapping and imaging</small></span><input type="checkbox" data-equip="camera" checked /><i></i></label>
+          <label class="equipment"><span class="equip-icon">⌁</span><span><b>Subsurface radar</b><small>Search for buried water ice</small></span><input type="checkbox" data-equip="radar" checked /><i></i></label>
+          <label class="equipment"><span class="equip-icon">⚗</span><span><b>Sample analysis lab</b><small>Analyse soil and rock samples</small></span><input type="checkbox" data-equip="lab" /><i></i></label>
+          <label class="equipment"><span class="equip-icon">⌁</span><span><b>Autonomous navigation</b><small>Safer route planning</small><input type="checkbox" data-equip="nav" checked /><i></i></label>
+        </div>
+        <div class="range-wrap"><div class="range-heading"><label for="duration">Mission duration</label><strong><span id="durationValue">18</span> months</strong></div><input id="duration" type="range" min="6" max="36" value="18" step="3" /><div class="range-scale"><span>6 months</span><span>36 months</span></div></div>
+      </section>
+
+      <section class="panel analysis">
+        <div class="section-head"><div><p class="eyebrow">02 / MISSION INTELLIGENCE</p><h2>Mission Doctor</h2></div><span class="doctor-status"><span class="live-dot"></span> ANALYSING</span></div>
+        <p class="muted">Your configuration is checked against mission-planning heuristics. Change any setting to update the diagnosis.</p>
+        <div class="readiness"><div class="readiness-ring" id="readinessRing"><div><strong id="readinessValue">78</strong><small>/100</small></div></div><div><span class="status-kicker">OVERALL READINESS</span><h3 id="readinessLabel">Mission viable</h3><p id="readinessDesc">Your mission has a balanced starting configuration.</p></div></div>
+        <div class="diagnosis-list" id="diagnosisList"></div>
+        <div class="recommendation"><span class="recommend-icon">✦</span><div><b>MISSION DOCTOR SUGGESTION</b><p id="suggestionText">Consider the nuclear power system for longer missions.</p></div></div>
+        <div class="section-head event-head"><div><p class="eyebrow">03 / CONTINGENCY LAB</p><h2>Mission event</h2></div><span class="tag">DECISION SIM</span></div>
+        <div class="event-card" id="eventCard">
+          <div class="event-top"><span class="event-symbol">⚠</span><span class="event-type">UNEXPECTED EVENT</span><span class="event-sol" id="eventSol">SOL 087</span></div>
+          <h3 id="eventTitle">Solar dust storm detected</h3>
+          <p id="eventDescription">Dust is reducing solar-array output. Choose how mission control should respond.</p>
+          <div class="event-choices" id="eventChoices"></div>
+          <div id="eventOutcome" class="event-outcome" hidden></div>
+          <button id="nextEventBtn" class="secondary-btn full-width" type="button">Generate another event ↗</button>
+        </div>
+      </section>
+    </section>
+
+
+    <section class="panel engineering">
+      <div class="section-head"><div><p class="eyebrow">04 / ENGINEERING CONSTRAINTS</p><h2>Plan the whole mission</h2></div><span class="tag">MISSION DESIGN</span></div>
+      <p class="muted">Choose a launch vehicle, destination profile, and communications plan. The simplified model checks payload mass, orbital fit, and communication trade-offs.</p>
+      <div class="engineering-grid">
+        <div class="engineering-control">
+          <label class="field-label" for="launchVehicle">Launch vehicle</label>
+          <select id="launchVehicle" class="text-input">
+            <option value="light">Light lift — 2,000 kg illustrative capacity</option>
+            <option value="medium" selected>Medium lift — 8,000 kg illustrative capacity</option>
+            <option value="heavy">Heavy lift — 15,000 kg illustrative capacity</option>
+          </select>
+          <div class="engineering-note">The capacities and prices here are fictional teaching values, not specifications for actual launch vehicles.</div>
+        </div>
+        <div class="engineering-control">
+          <label class="field-label" for="destination">Mission destination</label>
+          <select id="destination" class="text-input">
+            <option value="orbit">Mars orbital survey</option>
+            <option value="surface" selected>Mars surface rover</option>
+            <option value="sample">Sample-return concept</option>
+          </select>
+          <div class="engineering-note">Destination changes the modeled mass, cost, science value, and risk.</div>
+        </div>
+        <div class="engineering-control">
+          <label class="field-label" for="communications">Communications system</label>
+          <select id="communications" class="text-input">
+            <option value="basic">Basic direct-to-Earth antenna</option>
+            <option value="relay" selected>Relay orbiter + direct-to-Earth</option>
+            <option value="highgain">High-gain direct-to-Earth</option>
+          </select>
+          <div class="engineering-note">Relay support can improve modeled contact coverage, but adds mass and cost.</div>
+        </div>
+        <div class="engineering-control">
+          <label class="field-label" for="orbit">Orbit / operations profile</label>
+          <select id="orbit" class="text-input">
+            <option value="low">Low Mars orbit — frequent passes</option>
+            <option value="polar" selected>Polar science orbit — broad coverage</option>
+            <option value="surface">Surface operations — terrain constraints</option>
+          </select>
+          <div class="engineering-note">Orbit options are simplified scenarios to teach trade-offs, not trajectory calculations.</div>
+        </div>
+      </div>
+      <div class="engineering-results">
+        <div class="engineering-result"><span>SPACECRAFT MASS</span><strong id="massValue">--</strong><small id="massDetail">Payload + bus estimate</small></div>
+        <div class="engineering-result"><span>LAUNCH CAPACITY</span><strong id="capacityValue">--</strong><small id="capacityDetail">Selected launch option</small></div>
+        <div class="engineering-result"><span>COMMUNICATIONS</span><strong id="commValue">--</strong><small id="commDetail">Coverage estimate</small></div>
+        <div class="engineering-result"><span>MISSION FIT</span><strong id="fitValue">--</strong><small id="fitDetail">Constraint check</small></div>
+      </div>
+      <div id="engineeringWarnings" class="engineering-warnings" role="status"></div>
+    </section>
+
+    <section class="panel comparison">
+      <div class="section-head"><div><p class="eyebrow">05 / TRADE-OFF ANALYSIS</p><h2>Compare mission designs</h2></div><span class="tag">SCENARIO PLANNER</span></div>
+      <p class="muted">Compare your live design with a robust alternative. Values are illustrative planning estimates, not official NASA engineering data.</p>
+      <div class="comparison-grid">
+        <div class="compare-card current"><div class="compare-title"><span>DESIGN A</span><b id="designAName">Ares Pathfinder</b><em>Current configuration</em></div><div class="compare-line"><span>Readiness</span><b id="compareAReadiness">--</b></div><div class="compare-line"><span>Estimated cost</span><b id="compareACost">--</b></div><div class="compare-line"><span>Science return</span><b id="compareAScience">--</b></div><div class="compare-line"><span>Risk index</span><b id="compareARisk">--</b></div></div>
+        <div class="compare-vs">VS</div>
+        <div class="compare-card alternative"><div class="compare-title"><span>DESIGN B</span><b>Endurance Explorer</b><em>Robust alternative</em></div><div class="compare-line"><span>Readiness</span><b id="compareBReadiness">--</b></div><div class="compare-line"><span>Estimated cost</span><b id="compareBCost">--</b></div><div class="compare-line"><span>Science return</span><b id="compareBScience">--</b></div><div class="compare-line"><span>Risk index</span><b id="compareBRisk">--</b></div></div>
+      </div>
+      <div class="compare-verdict" id="compareVerdict">Configure your mission to see the comparison.</div>
+    </section>
+
+    <section class="panel data-panel">
+      <div class="section-head"><div><p class="eyebrow">06 / EXPLORATION DATA</p><h2>Mars mission facts</h2></div><span class="tag">NASA-INSPIRED</span></div>
+      <div class="facts-grid" id="factsGrid"></div>
+      <p class="data-note">Educational context: the facts below are general reference values. ORBITWISE cost, power, readiness, risk, and event outcomes are simplified illustrative estimates, not real flight predictions. Connect to NASA APIs later for live public data.</p>
+    </section>
+    <footer><span>ORBITWISE <b>MISSION ARCHITECT</b></span><span>Built for exploration • Educational simulation</span><span>V4.0</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
